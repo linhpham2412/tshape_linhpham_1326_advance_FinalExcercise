@@ -91,8 +91,6 @@ public class UniversalEndpoint {
                 .addAll(currentHeader)
                 .build();
         System.out.println("Added new header [" + headerName + "] with value [" + headerValue + "] to [" + objectClass.getSimpleName() + "]");
-        getCurrentReportNode()
-                .pass("Added new header [" + headerName + "] with value [" + headerValue + "] to [" + objectClass.getSimpleName() + "]");
     }
 
     protected Response getResponse() {
@@ -110,8 +108,6 @@ public class UniversalEndpoint {
     protected <T> void addQueryParametersNameWithValue(String paramName, String paramValue, Class<T> objectClass) {
         parameters.put(paramName, paramValue);
         System.out.println("Added new Query Parameter [" + paramName + "] with value [" + paramValue + "] to [" + objectClass.getSimpleName() + "]");
-        getCurrentReportNode()
-                .pass("Added new Query Parameter [" + paramName + "] with value [" + paramValue + "] to [" + objectClass.getSimpleName() + "]");
     }
 
     protected <T> void changeEndpointPathParameterNameWithValue(String paramName, String paramValue, Class<T> objectClass) {
@@ -119,23 +115,17 @@ public class UniversalEndpoint {
                 .map(segment -> segment.equalsIgnoreCase(paramName) ? paramValue : segment)
                 .collect(toList());
         System.out.println("Changed value of " + paramName + " Parameter to value [" + paramValue + "] in [" + objectClass.getSimpleName() + "]");
-        getCurrentReportNode()
-                .pass("Changed value of " + paramName + " Parameter to value [" + paramValue + "] in [" + objectClass.getSimpleName() + "]");
     }
 
     @SneakyThrows
     protected <T> void createRequestBody(String jsonBody, Class<T> objectClass) {
         requestJSON = convertStringToJSONObject(jsonBody);
         System.out.println("Added new body [" + jsonBody + "] to [" + objectClass.getSimpleName() + "]");
-        getCurrentReportNode()
-                .pass("Added new body [" + jsonBody + "] to [" + objectClass.getSimpleName() + "]");
     }
 
     protected <T> void updateRequestFieldWithValue(String fieldName, String fieldValue, Class<T> objectClass) {
         requestJSON.put(fieldName, fieldValue);
         System.out.println("Changed endpoint [" + objectClass.getSimpleName() + "] request body field [" + fieldName + "] value to [" + fieldValue + "]");
-        getCurrentReportNode()
-                .pass("Changed endpoint [" + objectClass.getSimpleName() + "] request body field [" + fieldName + "] value to [" + fieldValue + "]");
     }
 
     private void clearAllParams() {
