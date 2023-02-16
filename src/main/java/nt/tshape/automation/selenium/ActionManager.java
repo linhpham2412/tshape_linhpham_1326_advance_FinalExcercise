@@ -83,31 +83,31 @@ public class ActionManager {
     }
 
     public List<WebElement> findElements(String elementByTypeAndPath) {
-        List<WebElement> workingElement = null;
+        List<WebElement> workingElements = null;
         String[] extractedString = elementByTypeAndPath.split("=", 2);
         String byType = extractedString[0];
         String path = extractedString[1];
         try {
             switch (byType) {
-                case "id" -> workingElement = driver.findElements(By.id(path));
-                case "xpath" -> workingElement = driver.findElements(By.xpath(path));
-                case "class" -> workingElement = driver.findElements(By.className(path));
-                case "css" -> workingElement = driver.findElements(By.cssSelector(path));
-                case "linkText" -> workingElement = driver.findElements(By.linkText(path));
-                case "name" -> workingElement = driver.findElements(By.name(path));
-                case "partialLinkText" -> workingElement = driver.findElements(By.partialLinkText(path));
-                case "tag" -> workingElement = driver.findElements(By.tagName(path));
+                case "id" -> workingElements = driver.findElements(By.id(path));
+                case "xpath" -> workingElements = driver.findElements(By.xpath(path));
+                case "class" -> workingElements = driver.findElements(By.className(path));
+                case "css" -> workingElements = driver.findElements(By.cssSelector(path));
+                case "linkText" -> workingElements = driver.findElements(By.linkText(path));
+                case "name" -> workingElements = driver.findElements(By.name(path));
+                case "partialLinkText" -> workingElements = driver.findElements(By.partialLinkText(path));
+                case "tag" -> workingElements = driver.findElements(By.tagName(path));
             }
         } catch (NoSuchElementException noSuchElementException) {
-            System.out.println("The element located by : [" + elementByTypeAndPath + "] cannot be found!");
-            throw new NoSuchElementException("The element located by : [" + elementByTypeAndPath + "] cannot be found!");
+            System.out.println("Elements located by : [" + elementByTypeAndPath + "] cannot be found!");
+            throw new NoSuchElementException("Elements located by : [" + elementByTypeAndPath + "] cannot be found!");
         } catch (StaleElementReferenceException staleElementReferenceException) {
             return findElements(elementByTypeAndPath);
         } catch (Exception e) {
-            System.out.println("There is an error when finding the element : [" + elementByTypeAndPath + "]");
+            System.out.println("There is an error when finding Elements : [" + elementByTypeAndPath + "]");
             throw e;
         }
-        return workingElement;
+        return workingElements;
     }
 
     @SneakyThrows
