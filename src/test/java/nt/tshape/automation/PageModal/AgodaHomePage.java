@@ -2,10 +2,10 @@ package nt.tshape.automation.PageModal;
 
 import nt.tshape.automation.selenium.ActionManager;
 import nt.tshape.automation.selenium.TestContext;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class AgodaHomePage extends ActionManager {
-
     public AgodaHomePage(WebDriver driver, TestContext testContext) {
         super(driver, testContext);
     }
@@ -27,11 +27,87 @@ public class AgodaHomePage extends ActionManager {
     private final String agodaHomePage_OccupancyBoxLocator = "id=occupancy-box";
     private final String agodaHomePage_SearchButtonLocator = "xpath=//button[contains(@data-selenium,'searchButton')]";
     private final String agodaHomePage_InAppPopupMessage = "xpath=//div[contains(@class,'ab-in-app-message')]";
-    private final String agodaHomePage_ButtonInAppPopupMessage = "xpath=//button[contains(@class,'ab-close-button')]";
-    private final String agodaHomePage_SearchingModal = "xpath=//div[contains(@class,'ModalLoadingSpinner__content')]";
+    private final String agodaHomePage_CloseButtonInAppPopupMessage = "xpath=//button[contains(@class,'ab-close-button')]";
 
 
     //Function
+    public AgodaHomePage openAgodaHomePage() {
+        openUrl("https://www.agoda.com/");
+        return this;
+    }
+
+    public AgodaHomePage inputSearchLocationByName(String locationName) {
+        try {
+            waitForElementVisible(agodaHomePage_DestinationTextBox);
+        } catch (NoSuchElementException e) {
+            waitForElementVisible(agodaHomePage_InAppPopupMessage);
+            click(agodaHomePage_CloseButtonInAppPopupMessage);
+        }
+        sendKeys(agodaHomePage_DestinationTextBox, locationName);
+        waitForElementVisible(agodaHomePage_DestinationSuggestionLocation.formatted(locationName));
+        click(agodaHomePage_DestinationSuggestionLocation.formatted(locationName));
+        return this;
+    }
+
+    public AgodaHomePage selectStartDateFromTomorrowToNextNumberOfDays(int numberOfDays) {
+        waitForElementVisible(agodaHomePage_FromDateToday);
+        int todayDateValue = Integer.parseInt(getText(agodaHomePage_FromDateToday));
+        int lastDayOfThisMonthDateValue = Integer.parseInt(getText(agodaHomePage_DateSelectorLastDayOfThisMonth));
+        int selectedFromDate = 0;
+        if (todayDateValue == lastDayOfThisMonthDateValue) {
+            click(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted("1"));
+            selectedFromDate = 1;
+        } else {
+            click(agodaHomePage_FromDateTomorrow);
+            selectedFromDate = Integer.parseInt(getText(agodaHomePage_FromDateTomorrow));
+        }
+        if (selectedFromDate == lastDayOfThisMonthDateValue) {
+            click(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)));
+        } else if (selectedFromDate == 1) {
+            numberOfDays = selectedFromDate + numberOfDays;
+            click(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)));
+        } else {
+            numberOfDays = selectedFromDate + numberOfDays;
+            click(agodaHomePage_DateSelectorByDayNumberOfThisMonth.formatted(String.valueOf(numberOfDays)));
+        }
+        return this;
+    }
+
+    public AgodaHomePage changeNumberOfRoomTo(int numberOfRoom) {
+        waitForElementVisible(agodaHomePage_RoomValueLocator);
+        int currentRoomValue = Integer.parseInt(getText(agodaHomePage_RoomValueLocator));
+        int numberOfClickToChange = 0;
+        if (currentRoomValue < numberOfRoom) {
+            numberOfClickToChange = numberOfRoom - currentRoomValue;
+            for (int i = 0; i < numberOfClickToChange; i++) {
+                click(agodaHomePage_RoomButtonLocatorByName.formatted("plus"));
+            }
+        } else {
+            numberOfClickToChange = currentRoomValue - numberOfRoom;
+            for (int i = 0; i < numberOfClickToChange; i++) {
+                click(agodaHomePage_RoomButtonLocatorByName.formatted("minus"));
+            }
+        }
+        return this;
+    }
+    public AgodaHomePage changeNumberOfAdultsTo(int numberOfAdults) {
+        waitForElementVisible(agodaHomePage_AdultValueLocator);
+        int currentRoomValue = Integer.parseInt(getText(agodaHomePage_AdultValueLocator));
+        int numberOfClickToChange = 0;
+        if (currentRoomValue < numberOfAdults) {
+            numberOfClickToChange = numberOfAdults - currentRoomValue;
+            for (int i = 0; i < numberOfClickToChange; i++) {
+                click(agodaHomePage_AdultButtonLocatorByName.formatted("plus"));
+            }
+        } else {
+            numberOfClickToChange = currentRoomValue - numberOfAdults;
+            for (int i = 0; i < numberOfClickToChange; i++) {
+                click(agodaHomePage_AdultButtonLocatorByName.formatted("minus"));
+            }
+        }
+        return this;
+    }
+
     //todo: get value of FromDateToday and value of DateSelectorLastDayOfThisMonth
     //if today equal to last day of this month > pick DateSelectorByDayNumberOfNextMonth with value 1
     //else pick FromDateTomorrow

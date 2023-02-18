@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90504a42-4e5d-47a4-a68b-c7a530fd62b0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHotelDetailPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaSearchPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHomePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHotelDetailPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHotelDetailPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaSearchPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaSearchPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,10 +40,11 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "dart.analysis.tool.window.visible": "false"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\linhpham\Documents\Git_Repository\tshape_linhpham_1326_advance_FinalExcercise\src\main\java" />
