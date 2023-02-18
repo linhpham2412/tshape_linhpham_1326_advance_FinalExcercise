@@ -26,6 +26,9 @@ public class AgodaHomePage extends ActionManager {
     private final String agodaHomePage_ChildrenButtonLocatorByName = "xpath=//div[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-children')]";
     private final String agodaHomePage_OccupancyBoxLocator = "id=occupancy-box";
     private final String agodaHomePage_SearchButtonLocator = "xpath=//button[contains(@data-selenium,'searchButton')]";
+    private final String agodaHomePage_InAppPopupMessage = "xpath=//div[contains(@class,'ab-in-app-message')]";
+    private final String agodaHomePage_ButtonInAppPopupMessage = "xpath=//button[contains(@class,'ab-close-button')]";
+    private final String agodaHomePage_SearchingModal = "xpath=//div[contains(@class,'ModalLoadingSpinner__content')]";
 
 
     //Function
@@ -36,4 +39,6 @@ public class AgodaHomePage extends ActionManager {
     //if picked day equal to last day of this month select DateSelectorByDayNumberOfNextMonth with value 3
     //if picked day equal to first day of next month select DateSelectorByDayNumberOfNextMonth with value 4
     //else add 3 to picked date and select that result form DateSelectorByDayNumberOfThisMonth
+
+    //Check 1st when no such element found
 }
