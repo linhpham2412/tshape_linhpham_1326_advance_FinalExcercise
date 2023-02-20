@@ -19,6 +19,20 @@ public class Final_Exercise_TestCase extends WebDriverTestNGSetupBase {
         agodaHomePage
                 .openAgodaHomePage()
                 .inputSearchLocationByName("Dalat")
-                .selectStartDateFromTomorrowToNextNumberOfDays(3);
+                .selectStartDateFromTomorrowToNextNumberOfDays(3)
+                .selectTravelTypeByName("Family travelers")
+                .changeNumberOfRoomTo(1)
+                .changeNumberOfAdultsTo(2)
+                .clickSearchHotelButton();
+
+        agodaSearchPage
+                .checkSearchResultsNumberShouldContainsLocationValue(5,"Dalat")
+                .filterHotelBenefitWithOptionName("Breakfast included")
+                .clickOnHotelByIndex("1");
+
+        agodaHotelDetailPage
+                .verifyHotelDetailPageDisplayCorrectHotelName()
+                .verifyHotelDetailPageDisplayCorrectHotelLocation()
+                .verifyHotelDetailPageDisplaySelectedBenefitByName("Breakfast included");
     }
 }
