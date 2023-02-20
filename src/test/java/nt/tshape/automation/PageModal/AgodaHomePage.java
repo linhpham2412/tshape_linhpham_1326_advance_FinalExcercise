@@ -19,10 +19,11 @@ public class AgodaHomePage extends ActionManager {
     private final String agodaHomePage_DateSelectorByDayNumberOfThisMonth = "xpath=(//div[contains(@class,'DayPicker-Month') and contains(@role,'grid')])[1]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-disabled,'false')]//span[(text()='%s')]";
     private final String agodaHomePage_DateSelectorByDayNumberOfNextMonth = "xpath=(//div[contains(@class,'DayPicker-Month') and contains(@role,'grid')])[2]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-disabled,'false')]//span[(text()='%s')]";
     private final String agodaHomePage_DateSelectorLastDayOfThisMonth = "xpath=(//div[contains(@class,'DayPicker-Month') and contains(@role,'grid')])[1]//div[contains(@class,'DayPicker-Week-Wide')][last()]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-disabled,'false')][last()]//span";
-    private final String agodaHomePage_RoomValueLocator = "xpath=//div[contains(@data-selenium,'desktop-occ-room-value')]//*";
-    private final String agodaHomePage_RoomButtonLocatorByName = "xpath=//div[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-rooms')]";
-    private final String agodaHomePage_AdultValueLocator = "xpath=//div[contains(@data-selenium,'desktop-occ-adult-value')]//*";
-    private final String agodaHomePage_AdultButtonLocatorByName = "xpath=//div[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-adult')]";
+    private final String agodaHomePage_RoomValueLocator = "xpath=//span[contains(@data-selenium,'desktop-occ-room-value')]";
+    private final String agodaHomePage_RoomButtonLocatorByName = "xpath=//span[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-rooms')]";
+    private final String agodaHomePage_TravalTypeLocatorByName = "xpath=//div[contains(@class,'TravellerSegment__title') and contains(text(),'%s')]";
+    private final String agodaHomePage_AdultValueLocator = "xpath=//span[contains(@data-selenium,'desktop-occ-adult-value')]";
+    private final String agodaHomePage_AdultButtonLocatorByName = "xpath=//span[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-adult')]";
     //    private final String agodaHomePage_ChildrenValueLocator = "xpath=//div[contains(@data-selenium,'desktop-occ-children-value')]//*";
 //    private final String agodaHomePage_ChildrenButtonLocatorByName = "xpath=//div[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-children')]";
     private final String agodaHomePage_OccupancyBoxLocator = "id=occupancy-box";
@@ -77,7 +78,13 @@ public class AgodaHomePage extends ActionManager {
         }
         return this;
     }
-
+    @SneakyThrows
+    public AgodaHomePage selectTravelTypeByName(String travelTypeName){
+        waitForShortTime();
+        waitForElementVisible(agodaHomePage_TravalTypeLocatorByName.formatted(travelTypeName));
+        click(agodaHomePage_TravalTypeLocatorByName.formatted(travelTypeName));
+        return this;
+    }
     public AgodaHomePage changeNumberOfRoomTo(int numberOfRoom) {
         waitForElementVisible(agodaHomePage_RoomValueLocator);
         int currentRoomValue = Integer.parseInt(getText(agodaHomePage_RoomValueLocator));
@@ -113,7 +120,11 @@ public class AgodaHomePage extends ActionManager {
         }
         return this;
     }
-
+    public AgodaHomePage clickSearchHotelButton(){
+        click(agodaHomePage_OccupancyBoxLocator);
+        click(agodaHomePage_SearchButtonLocator);
+        return this;
+    }
     //todo: get value of FromDateToday and value of DateSelectorLastDayOfThisMonth
     //if today equal to last day of this month > pick DateSelectorByDayNumberOfNextMonth with value 1
     //else pick FromDateTomorrow
