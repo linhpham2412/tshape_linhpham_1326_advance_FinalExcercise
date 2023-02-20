@@ -26,7 +26,8 @@ public class AgodaSearchPage extends ActionManager {
     public AgodaSearchPage checkSearchResultsNumberShouldContainsLocationValue(int numberOfResult, String locationName) {
         waitForElementVisible(agodaSearchPage_SortBar);
         String hotelLocation = "";
-        for (int i = 0; i < numberOfResult; i++) {
+        for (int i = 1; i < numberOfResult+1; i++) {
+            mouseHoverToElement(agodaSearchPage_HotelDestinationByIndex.formatted(String.valueOf(i)));
             hotelLocation = getText(agodaSearchPage_HotelDestinationByIndex.formatted(String.valueOf(i)));
             assertConditionTrue("Hotel no " + i + " with location " + hotelLocation + " contains " + locationName, hotelLocation.contains(locationName));
         }
@@ -36,12 +37,14 @@ public class AgodaSearchPage extends ActionManager {
         mouseMoveToElementAndClick(agodaSearchPage_SideFilterMenuRoomOfferItemByName.formatted(benefitName));
         return this;
     }
+    @SneakyThrows
     public AgodaSearchPage clickOnHotelByIndex(String numberIndex){
+        waitForShortTime();
         waitForElementVisible(agodaSearchPage_HotelNameByIndex.formatted(numberIndex));
         getTestContext().setAttribute("SelectedHotelName",getText(agodaSearchPage_HotelNameByIndex.formatted(numberIndex)));
         getTestContext().setAttribute("SelectedHotelLocation",getText(agodaSearchPage_HotelDestinationByIndex.formatted(numberIndex)));
-//        getTestContext().setContextObjectsWithName("SelectedHotelBenefits", (ArrayList<?>) findElements(agodaSearchPage_HotelRoomBenefitsByIndex.formatted(numberIndex)));
         click(agodaSearchPage_HotelNameByIndex.formatted(numberIndex));
+        waitForLongTime();
         return this;
     }
 }

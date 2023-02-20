@@ -333,6 +333,15 @@ public class ActionManager {
         }
     }
 
+    public void switchToNewTab(){
+        String currentTab = driver.getWindowHandle();
+        for (String tab : driver.getWindowHandles()) {
+            if (!tab.equals(currentTab)) {
+                driver.switchTo().window(tab);
+            }
+        }
+    }
+
     @SneakyThrows
     public void assertEqual(String objectName, String expected, String actual) {
         String passMessage = "Assert object [" + objectName + "] passed because expected value: [" + expected + "] is equal with actual value: [" + actual + "]";
