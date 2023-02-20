@@ -3,6 +3,7 @@ package nt.tshape.automation.PageModal;
 import lombok.SneakyThrows;
 import nt.tshape.automation.selenium.ActionManager;
 import nt.tshape.automation.selenium.TestContext;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class AgodaHomePage extends ActionManager {
@@ -15,6 +16,8 @@ public class AgodaHomePage extends ActionManager {
     private final String agodaHomePage_DestinationSuggestionLocation = "xpath=//div[@class='Popup__content']//li[@aria-label='%s']";
     private final String agodaHomePage_FromDateToday = "xpath=//div[contains(@class,'PriceSurgePicker-Day__circle--today')]//span";
     private final String agodaHomePage_FromDateTomorrow = "xpath=//div[contains(@class,'PriceSurgePicker-Day__circle--today')]//following::div[1]//span";
+    private final String agodaHomePage_FromDateNextFridayOfThisMonth = "xpath=//div[contains(@class,'PriceSurgePicker-Day__circle--today')]//parent::div//parent::div//parent::div//following::div[contains(@class,'DayPicker-Week-Wide')][1]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-label,'Fri')]//span";
+    private final String agodaHomePage_FromDateFirstFridayOfNextMonth = "xpath=(//div[contains(@class,'DayPicker-Month')][2]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-label,'Fri')])[1]//span";
     private final String agodaHomePage_PreviousMonthButton = "xpath=//span[contains(@data-selenium,'calendar-previous-month-button')]";
     private final String agodaHomePage_DateSelectorByDayNumberOfThisMonth = "xpath=(//div[contains(@class,'DayPicker-Month') and contains(@role,'grid')])[1]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-disabled,'false')]//span[(text()='%s')]";
     private final String agodaHomePage_DateSelectorByDayNumberOfNextMonth = "xpath=(//div[contains(@class,'DayPicker-Month') and contains(@role,'grid')])[2]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-disabled,'false')]//span[(text()='%s')]";
@@ -70,21 +73,54 @@ public class AgodaHomePage extends ActionManager {
         if (selectedFromDate == lastDayOfThisMonthDateValue) {
             click(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)));
         } else if (selectedFromDate == 1) {
-            numberOfDays = selectedFromDate + numberOfDays;
+            numberOfDays += selectedFromDate;
             click(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)));
         } else {
-            numberOfDays = selectedFromDate + numberOfDays;
+            numberOfDays += selectedFromDate;
             click(agodaHomePage_DateSelectorByDayNumberOfThisMonth.formatted(String.valueOf(numberOfDays)));
         }
         return this;
     }
+
+    public AgodaHomePage selectStartDateFromNextFridayToNextNumberOfDays(int numberOfDays) {
+        try {
+            waitForElementVisible(agodaHomePage_FromDateToday);
+        } catch (Exception e) {
+            click(agodaHomePage_PreviousMonthButton);
+        }
+        int selectedFromDate = 0;
+        int lastDayOfThisMonthDateValue = Integer.parseInt(getText(agodaHomePage_DateSelectorLastDayOfThisMonth));
+        try {
+            waitForElementVisible(agodaHomePage_FromDateNextFridayOfThisMonth);
+            click(agodaHomePage_FromDateNextFridayOfThisMonth);
+            selectedFromDate = Integer.parseInt(getText(agodaHomePage_FromDateNextFridayOfThisMonth));
+            if (selectedFromDate == lastDayOfThisMonthDateValue) {
+                click(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)));
+            } else if (selectedFromDate < lastDayOfThisMonthDateValue) {
+                int numberOfDateToEOM = lastDayOfThisMonthDateValue - selectedFromDate;
+                if (numberOfDays > numberOfDateToEOM) {
+                    numberOfDays -= numberOfDateToEOM;
+                }
+                selectedFromDate += numberOfDays;
+                click(agodaHomePage_DateSelectorLastDayOfThisMonth.formatted(numberOfDays));
+            }
+        } catch (NoSuchElementException e) {
+            click(agodaHomePage_FromDateFirstFridayOfNextMonth);
+            selectedFromDate = Integer.parseInt(getText(agodaHomePage_FromDateNextFridayOfThisMonth));
+            numberOfDays += selectedFromDate;
+            click(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)));
+        }
+        return this;
+    }
+
     @SneakyThrows
-    public AgodaHomePage selectTravelTypeByName(String travelTypeName){
+    public AgodaHomePage selectTravelTypeByName(String travelTypeName) {
         waitForShortTime();
         waitForElementVisible(agodaHomePage_TravalTypeLocatorByName.formatted(travelTypeName));
         click(agodaHomePage_TravalTypeLocatorByName.formatted(travelTypeName));
         return this;
     }
+
     public AgodaHomePage changeNumberOfRoomTo(int numberOfRoom) {
         waitForElementVisible(agodaHomePage_RoomValueLocator);
         int currentRoomValue = Integer.parseInt(getText(agodaHomePage_RoomValueLocator));
@@ -120,7 +156,8 @@ public class AgodaHomePage extends ActionManager {
         }
         return this;
     }
-    public AgodaHomePage clickSearchHotelButton(){
+
+    public AgodaHomePage clickSearchHotelButton() {
         click(agodaHomePage_OccupancyBoxLocator);
         click(agodaHomePage_SearchButtonLocator);
         return this;
