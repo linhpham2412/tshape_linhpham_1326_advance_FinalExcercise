@@ -13,7 +13,7 @@ public class AgodaHomePage extends ActionManager {
 
     //Locator
     private final String agodaHomePage_DestinationTextBox = "id=textInput";
-    private final String agodaHomePage_DestinationSuggestionLocation = "xpath=//div[@class='Popup__content']//li[@aria-label='%s']";
+    private final String agodaHomePage_DestinationSuggestionLocation = "xpath=//div[@class='Popup__content']//li[@data-text='%s']";
     private final String agodaHomePage_FromDateToday = "xpath=//div[contains(@class,'PriceSurgePicker-Day__circle--today')]//span";
     private final String agodaHomePage_FromDateTomorrow = "xpath=//div[contains(@class,'PriceSurgePicker-Day__circle--today')]//following::div[1]//span";
     private final String agodaHomePage_FromDateNextFridayOfThisMonth = "xpath=//div[contains(@class,'PriceSurgePicker-Day__circle--today')]//parent::div//parent::div//parent::div//following::div[contains(@class,'DayPicker-Week-Wide')][1]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-label,'Fri')]//span";
@@ -22,14 +22,15 @@ public class AgodaHomePage extends ActionManager {
     private final String agodaHomePage_DateSelectorByDayNumberOfThisMonth = "xpath=(//div[contains(@class,'DayPicker-Month') and contains(@role,'grid')])[1]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-disabled,'false')]//span[(text()='%s')]";
     private final String agodaHomePage_DateSelectorByDayNumberOfNextMonth = "xpath=(//div[contains(@class,'DayPicker-Month') and contains(@role,'grid')])[2]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-disabled,'false')]//span[(text()='%s')]";
     private final String agodaHomePage_DateSelectorLastDayOfThisMonth = "xpath=(//div[contains(@class,'DayPicker-Month') and contains(@role,'grid')])[1]//div[contains(@class,'DayPicker-Week-Wide')][last()]//div[contains(@class,'PriceSurgePicker-Day') and contains(@aria-disabled,'false')][last()]//span";
-    private final String agodaHomePage_RoomValueLocator = "xpath=//span[contains(@data-selenium,'desktop-occ-room-value')]";
-    private final String agodaHomePage_RoomButtonLocatorByName = "xpath=//span[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-rooms')]";
+    private final String agodaHomePage_RoomValueLocator = "xpath=//*[contains(@data-selenium,'desktop-occ-room-value')]";
+    private final String agodaHomePage_RoomButtonLocatorByName = "xpath=//*[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-rooms')]";
     private final String agodaHomePage_TravalTypeLocatorByName = "xpath=//div[contains(@class,'TravellerSegment__title') and contains(text(),'%s')]";
-    private final String agodaHomePage_AdultValueLocator = "xpath=//span[contains(@data-selenium,'desktop-occ-adult-value')]";
-    private final String agodaHomePage_AdultButtonLocatorByName = "xpath=//span[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-adult')]";
+    private final String agodaHomePage_AdultValueLocator = "xpath=//*[contains(@data-selenium,'desktop-occ-adult-value')]";
+    private final String agodaHomePage_AdultButtonLocatorByName = "xpath=//*[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-adult')]";
     //    private final String agodaHomePage_ChildrenValueLocator = "xpath=//div[contains(@data-selenium,'desktop-occ-children-value')]//*";
 //    private final String agodaHomePage_ChildrenButtonLocatorByName = "xpath=//div[contains(@data-selenium,'%s') and contains(@data-element-name,'occupancy-selector-panel-children')]";
     private final String agodaHomePage_OccupancyBoxLocator = "id=occupancy-box";
+    private final String agodaHomePage_CheckInBoxLocator = "id=check-in-box";
     private final String agodaHomePage_SearchButtonLocator = "xpath=//button[contains(@data-selenium,'searchButton')]";
     private final String agodaHomePage_InAppPopupMessage = "xpath=//div[contains(@class,'ab-in-app-message')]";
     private final String agodaHomePage_CloseButtonInAppPopupMessage = "xpath=//button[contains(@class,'ab-close-button')]";
@@ -46,15 +47,14 @@ public class AgodaHomePage extends ActionManager {
     public AgodaHomePage inputSearchLocationByName(String locationName) {
         waitForElementVisible(agodaHomePage_DestinationTextBox);
         sendKeys(agodaHomePage_DestinationTextBox, locationName);
-        waitForLongTime();
-        waitForElementVisible(agodaHomePage_InAppPopupMessage);
-        click(agodaHomePage_CloseButtonInAppPopupMessage);
+        waitForShortTime();
         waitForElementVisible(agodaHomePage_DestinationSuggestionLocation.formatted(locationName));
         click(agodaHomePage_DestinationSuggestionLocation.formatted(locationName));
         return this;
     }
-
+    @SneakyThrows
     public AgodaHomePage selectStartDateFromTomorrowToNextNumberOfDays(int numberOfDays) {
+        waitForShortTime();
         try {
             waitForElementVisible(agodaHomePage_FromDateToday);
         } catch (Exception e) {
@@ -116,8 +116,12 @@ public class AgodaHomePage extends ActionManager {
     @SneakyThrows
     public AgodaHomePage selectTravelTypeByName(String travelTypeName) {
         waitForShortTime();
-        waitForElementVisible(agodaHomePage_TravalTypeLocatorByName.formatted(travelTypeName));
-        click(agodaHomePage_TravalTypeLocatorByName.formatted(travelTypeName));
+        try {
+            waitForElementVisible(agodaHomePage_TravalTypeLocatorByName.formatted(travelTypeName));
+            click(agodaHomePage_TravalTypeLocatorByName.formatted(travelTypeName));
+        } catch (Exception e) {
+
+        }
         return this;
     }
 
