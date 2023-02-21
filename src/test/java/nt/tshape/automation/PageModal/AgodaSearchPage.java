@@ -19,7 +19,8 @@ public class AgodaSearchPage extends ActionManager {
     private final String agodaSearchPage_HotelDestinationByIndex = "xpath=(//div[contains(@class,'PropertyCard__Container')]//span[contains(@data-selenium,'area-city-text')]//span)[%s]";
     private final String agodaSearchPage_HotelNameByIndex = "xpath=(//div[contains(@class,'PropertyCard__Container')]//h3[contains(@data-selenium,'hotel-name')])[%s]";
     private final String agodaSearchPage_HotelRoomBenefitsByIndex = "xpath=(//div[contains(@data-selenium,'pill-container')])[%s]//div//span";
-    private final String agodaSearchPage_SideFilterMenuRoomOfferItemByName = "xpath=//span[contains(@data-component,'fliter-label')]//span[contains(text(),'Room offers')]//following::div[contains(@class,'filter-items')][1]//span[contains(@data-selenium,'filter-item-text') and contains(text(),'%s')]";
+    private final String agodaSearchPage_SideFilterMenuRoomOfferItemByName = "xpath=//span[contains(@class,'filter-item-content') and contains(text(),'%s')]";
+    private final String agodaSearchPage_SideFilterMenuRoomOfferTitleByName = "xpath=//span[contains(@data-component,'fliter-label')]//span[contains(text(),'%s')]";
 
     //Function
     @SneakyThrows
@@ -33,8 +34,9 @@ public class AgodaSearchPage extends ActionManager {
         }
         return this;
     }
-    public AgodaSearchPage filterHotelBenefitWithOptionName(String benefitName){
-        mouseMoveToElementAndClick(agodaSearchPage_SideFilterMenuRoomOfferItemByName.formatted(benefitName));
+    public AgodaSearchPage filterHotelBenefitWithBenefitTitleAndOptionName(String benefitTitle,String benefitName){
+        mouseHoverToElement(agodaSearchPage_SideFilterMenuRoomOfferTitleByName.formatted(benefitTitle));
+        click(agodaSearchPage_SideFilterMenuRoomOfferItemByName.formatted(benefitName));
         return this;
     }
     @SneakyThrows

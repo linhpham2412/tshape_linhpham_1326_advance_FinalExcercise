@@ -1,9 +1,8 @@
 package nt.tshape.automation.selenium;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Utils {
@@ -33,12 +32,20 @@ public class Utils {
         Random random = new Random();
         return random.nextBoolean();
     }
-    public static Boolean checkIfFileExistInLocation(String location, String fileName){
+
+    public static Boolean checkIfFileExistInLocation(String location, String fileName) {
         try {
-            File fileToCheck = new File(location+fileName);
+            File fileToCheck = new File(location + fileName);
             return true;
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static String convertTextToFormattedDate(String textToFortmat, String inputFormat, String outputFormat) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(inputFormat);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(outputFormat);
+        LocalDate convertDate = LocalDate.parse(textToFortmat,inputFormatter);
+        return convertDate.format(outputFormatter);
     }
 }

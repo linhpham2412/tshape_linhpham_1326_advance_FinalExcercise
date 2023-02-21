@@ -1,9 +1,7 @@
 package nt.tshape.automation.TestCase;
 
 import lombok.SneakyThrows;
-import nt.tshape.automation.PageModal.AgodaHomePage;
-import nt.tshape.automation.PageModal.AgodaHotelDetailPage;
-import nt.tshape.automation.PageModal.AgodaSearchPage;
+import nt.tshape.automation.PageModal.*;
 import nt.tshape.automation.setup.WebDriverTestNGSetupBase;
 import org.testng.annotations.Test;
 
@@ -27,7 +25,7 @@ public class Final_Exercise_TestCase extends WebDriverTestNGSetupBase {
 
         agodaSearchPage
                 .checkSearchResultsNumberShouldContainsLocationValue(5,"Dalat")
-                .filterHotelBenefitWithOptionName("Breakfast included")
+                .filterHotelBenefitWithBenefitTitleAndOptionName("Room offers","Breakfast included")
                 .clickOnHotelByIndex("1");
 
         agodaHotelDetailPage
@@ -41,6 +39,8 @@ public class Final_Exercise_TestCase extends WebDriverTestNGSetupBase {
         AgodaHomePage agodaHomePage = new AgodaHomePage(getDriver(),getTestContext());
         AgodaHotelDetailPage agodaHotelDetailPage = new AgodaHotelDetailPage(getDriver(),getTestContext());
         AgodaSearchPage agodaSearchPage = new AgodaSearchPage(getDriver(),getTestContext());
+        AgodaLoginPage agodaLoginPage = new AgodaLoginPage(getDriver(),getTestContext());
+        AgodaFavoriteListPage agodaFavoriteListPage = new AgodaFavoriteListPage(getDriver(),getTestContext());
 
         //Start Testing
         agodaHomePage
@@ -54,7 +54,25 @@ public class Final_Exercise_TestCase extends WebDriverTestNGSetupBase {
 
         agodaSearchPage
                 .checkSearchResultsNumberShouldContainsLocationValue(5,"Dalat")
-                .filterHotelBenefitWithOptionName("Swimming pool")
+                .filterHotelBenefitWithBenefitTitleAndOptionName("Property facilities","Swimming pool")
                 .clickOnHotelByIndex("1");
+
+        agodaHotelDetailPage
+                .verifyHotelDetailPageDisplayCorrectHotelName()
+                .verifyHotelDetailPageDisplayCorrectHotelLocation()
+                .verifyHotelDetailPageDisplaySelectedFacilitiesByName("Swimming pool")
+                .clickFavoriteButton();
+
+        agodaLoginPage
+                .inputUsernameAndPasswordAndLogin("blue.linhpham2412us@gmail.com", "AutomationTesting101");
+
+        agodaHotelDetailPage
+                .verifyFavoriteSavedCorrectly()
+                .goToUserFavoriteHotelList();
+
+        agodaFavoriteListPage
+                .openFavoriteListWithLocationName("Dalat")
+                .verifySavedHotelExistInFavoriteList()
+                .verifyCheckInAndCheckOutDateCorrect();
     }
 }
