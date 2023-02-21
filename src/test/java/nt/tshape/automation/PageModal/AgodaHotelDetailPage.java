@@ -5,10 +5,10 @@ import nt.tshape.automation.selenium.ActionManager;
 import nt.tshape.automation.selenium.TestContext;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class AgodaHotelDetailPage extends ActionManager {
     WebDriver driver;
+
     public AgodaHotelDetailPage(WebDriver driver, TestContext testContext) {
         super(driver, testContext);
         this.driver = driver;
@@ -20,16 +20,27 @@ public class AgodaHotelDetailPage extends ActionManager {
     private final String agodaHotelDetailPage_HotelBenefitLocatorByName = "xpath=//div[contains(@data-selenium,'RoomGridFilter-filter')]//div[contains(text(),'%s')]";
     private final String agodaHotelDetailPage_HotelFacilitiesLocatorByName = "xpath=//p[contains(text(),'%s')]";
     private final String agodaHotelDetailPage_ButtonFavoriteLocator = "xpath=//*[contains(@data-selenium,'favorite-heart')]";
-    private final String agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocator = "xpath=//div[contains(@type,'bouncing-fav')]";
+    private final String agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocatorClass = "xpath=//*[contains(@class,'bouncing-fav')]";
+    private final String agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocatorType = "xpath=//*[contains(@type,'bouncing-fav')]";
     private final String agodaHotelDetailPage_UserAvatarLocator = "xpath=//div[contains(@data-element-name,'user-avatar')]";
     private final String agodaHotelDetailPage_UserSettingSubMenuLocatorByName = "xpath=//a[contains(@data-element-name,'favorite-menu')]";
+//    private final String agodaHotelDetailPage_SideFilterSeparatorLocator = "//following::div[contains(@class,'FilterSeparator')][1]";
 
     //Function
-    public AgodaHotelDetailPage clickFavoriteButton(){
-        mouseMoveToElementAndClick(agodaHotelDetailPage_ButtonFavoriteLocator);
+    public AgodaHotelDetailPage clickFavoriteButton() {
+        try {
+            waitForElementVisible(agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocatorClass);
+        } catch (NoSuchElementException e) {
+            try {
+                waitForElementVisible(agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocatorType);
+            } catch (NoSuchElementException e1) {
+                mouseMoveToElementAndClick(agodaHotelDetailPage_ButtonFavoriteLocator);
+            }
+        }
         return this;
     }
-    public AgodaHotelDetailPage goToUserFavoriteHotelList(){
+
+    public AgodaHotelDetailPage goToUserFavoriteHotelList() {
         mouseMoveToElementAndClick(agodaHotelDetailPage_UserAvatarLocator);
         waitForElementVisible(agodaHotelDetailPage_UserSettingSubMenuLocatorByName);
         click(agodaHotelDetailPage_UserSettingSubMenuLocatorByName);
@@ -71,31 +82,40 @@ public class AgodaHotelDetailPage extends ActionManager {
     @SneakyThrows
     public AgodaHotelDetailPage verifyHotelDetailPageDisplaySelectedBenefitByName(String expectedBenefitName) {
         //Arrange
-        try{
+        try {
             waitForElementVisible(agodaHotelDetailPage_HotelBenefitLocatorByName.formatted(expectedBenefitName));
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             switchToNewTab();
         }
         //Verify
         assertElementExist(agodaHotelDetailPage_HotelBenefitLocatorByName.formatted(expectedBenefitName));
         return this;
     }
+
     @SneakyThrows
     public AgodaHotelDetailPage verifyHotelDetailPageDisplaySelectedFacilitiesByName(String expectedFacilityName) {
         //Arrange
-        try{
+        try {
             mouseHoverToElement(agodaHotelDetailPage_HotelFacilitiesLocatorByName.formatted(expectedFacilityName));
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             switchToNewTab();
         }
         //Verify
         assertElementExist(agodaHotelDetailPage_HotelFacilitiesLocatorByName.formatted(expectedFacilityName));
         return this;
     }
+
     @SneakyThrows
-    public AgodaHotelDetailPage verifyFavoriteSavedCorrectly(){
+    public AgodaHotelDetailPage verifyFavoriteSavedCorrectly() {
         //verify
-        assertElementExist(agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocator);
+        try{
+            waitForElementVisible(agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocatorClass);
+            assertElementExist(agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocatorClass);
+        }catch (NoSuchElementException e){
+            waitForElementVisible(agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocatorType);
+            assertElementExist(agodaHotelDetailPage_ButtonFavoriteSavedFavoriteLocatorType);
+        }
+
         return this;
     }
 }

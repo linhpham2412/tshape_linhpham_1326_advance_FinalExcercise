@@ -64,15 +64,21 @@ public class Final_Exercise_TestCase extends WebDriverTestNGSetupBase {
                 .clickFavoriteButton();
 
         agodaLoginPage
-                .inputUsernameAndPasswordAndLogin("blue.linhpham2412us@gmail.com", "AutomationTesting101");
+                .inputAgodaUsernameAndPasswordThenLogin();
 
         agodaHotelDetailPage
+                .clickFavoriteButton()
                 .verifyFavoriteSavedCorrectly()
                 .goToUserFavoriteHotelList();
 
         agodaFavoriteListPage
                 .openFavoriteListWithLocationName("Dalat")
                 .verifySavedHotelExistInFavoriteList()
-                .verifyCheckInAndCheckOutDateCorrect();
+                .verifyCheckDateCorrectByName("checkInText")
+                .verifyCheckDateCorrectByName("checkOutText")
+                .verifyOccupationCorrectByName("roomValue")
+                .verifyOccupationCorrectByName("adultValue")
+                .verifySavedHotelNameSameAsFavoritedOne()
+                .verifySavedHotelLocationSameAsFavoritedOne();
     }
 }

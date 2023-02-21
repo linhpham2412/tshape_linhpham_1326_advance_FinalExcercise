@@ -1,6 +1,7 @@
 package nt.tshape.automation.PageModal;
 
 import lombok.SneakyThrows;
+import nt.tshape.automation.config.ConfigLoader;
 import nt.tshape.automation.selenium.ActionManager;
 import nt.tshape.automation.selenium.TestContext;
 import org.openqa.selenium.WebDriver;
@@ -18,10 +19,12 @@ public class AgodaLoginPage extends ActionManager {
 
     //Function
     @SneakyThrows
-    public AgodaLoginPage inputUsernameAndPasswordAndLogin(String username, String password){
+    public AgodaLoginPage inputAgodaUsernameAndPasswordThenLogin(){
+        String userName = ConfigLoader.getEnvironment("agodaUserName");
+        String password = ConfigLoader.getEnvironment("agodaPassword");
         switchToIframeByWebElement(findElement(agodaLoginPage_LoginIframeLocator));
         waitForElementVisible(agodaLoginPage_EmailTextBoxLocator);
-        sendKeys(agodaLoginPage_EmailTextBoxLocator,username);
+        sendKeys(agodaLoginPage_EmailTextBoxLocator,userName);
         sendKeys(agodaLoginPage_PasswordTextBoxLocator,password);
         click(agodaLoginPage_SignInButtonLocator);
         waitForMediumTime();

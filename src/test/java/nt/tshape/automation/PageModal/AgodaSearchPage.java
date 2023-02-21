@@ -21,6 +21,7 @@ public class AgodaSearchPage extends ActionManager {
     private final String agodaSearchPage_HotelRoomBenefitsByIndex = "xpath=(//div[contains(@data-selenium,'pill-container')])[%s]//div//span";
     private final String agodaSearchPage_SideFilterMenuRoomOfferItemByName = "xpath=//span[contains(@class,'filter-item-content') and contains(text(),'%s')]";
     private final String agodaSearchPage_SideFilterMenuRoomOfferTitleByName = "xpath=//span[contains(@data-component,'fliter-label')]//span[contains(text(),'%s')]";
+    private final String agodaSearchPage_SideFilterSeparatorLocator = "//following::div[contains(@class,'FilterSeparator')][1]";
 
     //Function
     @SneakyThrows
@@ -35,7 +36,7 @@ public class AgodaSearchPage extends ActionManager {
         return this;
     }
     public AgodaSearchPage filterHotelBenefitWithBenefitTitleAndOptionName(String benefitTitle,String benefitName){
-        mouseHoverToElement(agodaSearchPage_SideFilterMenuRoomOfferTitleByName.formatted(benefitTitle));
+        mouseHoverToElement(agodaSearchPage_SideFilterMenuRoomOfferTitleByName.formatted(benefitTitle)+agodaSearchPage_SideFilterSeparatorLocator);
         click(agodaSearchPage_SideFilterMenuRoomOfferItemByName.formatted(benefitName));
         return this;
     }
@@ -46,7 +47,7 @@ public class AgodaSearchPage extends ActionManager {
         getTestContext().setAttribute("SelectedHotelName",getText(agodaSearchPage_HotelNameByIndex.formatted(numberIndex)));
         getTestContext().setAttribute("SelectedHotelLocation",getText(agodaSearchPage_HotelDestinationByIndex.formatted(numberIndex)));
         click(agodaSearchPage_HotelNameByIndex.formatted(numberIndex));
-        waitForLongTime();
+//        waitForLongTime();
         return this;
     }
 }

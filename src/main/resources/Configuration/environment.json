@@ -2,7 +2,9 @@
   "environment": "dev",
   "dev": {
     "url": "https://www.saucedemo.com/inventory.html",
-    "apiHost": "https://reqres.in/"
+    "apiHost": "https://reqres.in/",
+    "agodaUserName": "blue.linhpham2412us@gmail.com",
+    "agodaPassword": "AutomationTesting101"
   },
   "test": {
     "url": "http://automationpractice.com/index.php",
