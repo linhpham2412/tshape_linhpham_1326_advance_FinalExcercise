@@ -45,7 +45,15 @@ public class Utils {
     public static String convertTextToFormattedDate(String textToFortmat, String inputFormat, String outputFormat) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(inputFormat);
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(outputFormat);
-        LocalDate convertDate = LocalDate.parse(textToFortmat,inputFormatter);
-        return convertDate.format(outputFormatter);
+        LocalDate convertDate = LocalDate.parse(textToFortmat, inputFormatter);
+        String outputDate = DateTimeFormatter.ofPattern(outputFormat).format(convertDate);
+        return (outputDate.charAt(0) == '0') ? outputDate.substring(1, outputDate.length()) : outputDate;
+    }
+
+    public static String convertTextToAgodaLinkFormat(String textToConvert){
+        return textToConvert
+                .toLowerCase()
+                .replaceAll(" ","-")
+                .trim();
     }
 }

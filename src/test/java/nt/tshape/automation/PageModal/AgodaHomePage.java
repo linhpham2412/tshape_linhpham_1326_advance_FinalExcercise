@@ -45,13 +45,15 @@ public class AgodaHomePage extends ActionManager {
     public AgodaHomePage inputSearchLocationByName(String locationName) {
         waitForElementVisible(agodaHomePage_DestinationTextBox);
         sendKeys(agodaHomePage_DestinationTextBox, locationName);
-        waitForLongTime();
-        waitForElementVisible(agodaHomePage_InAppPopupMessage);
-        click(agodaHomePage_CloseButtonInAppPopupMessage);
+        waitForShortTime();
+//        waitForLongTime();
+//        waitForElementVisible(agodaHomePage_InAppPopupMessage);
+//        click(agodaHomePage_CloseButtonInAppPopupMessage);
         waitForElementVisible(agodaHomePage_DestinationSuggestionLocation.formatted(locationName));
         click(agodaHomePage_DestinationSuggestionLocation.formatted(locationName));
         return this;
     }
+
     @SneakyThrows
     public AgodaHomePage selectStartDateFromTomorrowToNextNumberOfDays(int numberOfDays) {
         waitForShortTime();
@@ -82,10 +84,12 @@ public class AgodaHomePage extends ActionManager {
         return this;
     }
 
+    @SneakyThrows
     public AgodaHomePage selectStartDateFromNextFridayToNextNumberOfDays(int numberOfDays) {
         try {
             waitForElementVisible(agodaHomePage_FromDateToday);
         } catch (Exception e) {
+            waitForShortTime();
             click(agodaHomePage_PreviousMonthButton);
         }
         int selectedFromDate = 0;
@@ -93,11 +97,11 @@ public class AgodaHomePage extends ActionManager {
         try {
             waitForElementVisible(agodaHomePage_FromDateNextFridayOfThisMonth);
             click(agodaHomePage_FromDateNextFridayOfThisMonth);
-            getTestContext().setAttribute("Book_Start_Date",getTextByAttribute(agodaHomePage_FromDateNextFridayOfThisMonth+agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
+            getTestContext().setAttribute("checkInText", getTextByAttribute(agodaHomePage_FromDateNextFridayOfThisMonth + agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
             selectedFromDate = Integer.parseInt(getText(agodaHomePage_FromDateNextFridayOfThisMonth));
             if (selectedFromDate == lastDayOfThisMonthDateValue) {
                 click(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)));
-                getTestContext().setAttribute("Book_End_Date",getTextByAttribute(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays))+agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
+                getTestContext().setAttribute("checkOutText", getTextByAttribute(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)) + agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
             } else if (selectedFromDate < lastDayOfThisMonthDateValue) {
                 int numberOfDateToEOM = lastDayOfThisMonthDateValue - selectedFromDate;
                 if (numberOfDays > numberOfDateToEOM) {
@@ -105,14 +109,14 @@ public class AgodaHomePage extends ActionManager {
                 }
                 selectedFromDate += numberOfDays;
                 click(agodaHomePage_DateSelectorLastDayOfThisMonth.formatted(numberOfDays));
-                getTestContext().setAttribute("Book_End_Date",getTextByAttribute(agodaHomePage_DateSelectorLastDayOfThisMonth.formatted(numberOfDays)+agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
+                getTestContext().setAttribute("checkOutText", getTextByAttribute(agodaHomePage_DateSelectorLastDayOfThisMonth.formatted(numberOfDays) + agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
             }
         } catch (NoSuchElementException e) {
             click(agodaHomePage_FromDateFirstFridayOfNextMonth);
-            getTestContext().setAttribute("Book_Start_Date",getTextByAttribute(agodaHomePage_FromDateFirstFridayOfNextMonth+agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
+            getTestContext().setAttribute("checkInText", getTextByAttribute(agodaHomePage_FromDateFirstFridayOfNextMonth + agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
             selectedFromDate = Integer.parseInt(getText(agodaHomePage_FromDateFirstFridayOfNextMonth));
             numberOfDays += selectedFromDate;
-            getTestContext().setAttribute("Book_End_Date",getTextByAttribute(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays))+agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
+            getTestContext().setAttribute("checkOutText", getTextByAttribute(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)) + agodaHomePage_DateSelectorPostFixToGetFullDate, "aria-label"));
             click(agodaHomePage_DateSelectorByDayNumberOfNextMonth.formatted(String.valueOf(numberOfDays)));
         }
         return this;
@@ -127,10 +131,15 @@ public class AgodaHomePage extends ActionManager {
         } catch (Exception e) {
 
         }
+        waitForMediumTime();
+        waitForElementVisible(agodaHomePage_InAppPopupMessage);
+        click(agodaHomePage_CloseButtonInAppPopupMessage);
         return this;
     }
 
+    @SneakyThrows
     public AgodaHomePage changeNumberOfRoomTo(int numberOfRoom) {
+        waitForShortTime();
         waitForElementVisible(agodaHomePage_RoomValueLocator);
         int currentRoomValue = Integer.parseInt(getText(agodaHomePage_RoomValueLocator));
         int numberOfClickToChange = 0;
@@ -145,7 +154,7 @@ public class AgodaHomePage extends ActionManager {
                 mouseMoveToElementAndClick(agodaHomePage_RoomButtonLocatorByName.formatted("minus"));
             }
         }
-        getTestContext().setAttribute("Book_Room_Number",getText(agodaHomePage_RoomValueLocator));
+        getTestContext().setAttribute("roomValue", getText(agodaHomePage_RoomValueLocator));
         return this;
     }
 
@@ -164,7 +173,7 @@ public class AgodaHomePage extends ActionManager {
                 mouseMoveToElementAndClick(agodaHomePage_AdultButtonLocatorByName.formatted("minus"));
             }
         }
-        getTestContext().setAttribute("Book_Adult_Number",getText(agodaHomePage_AdultValueLocator));
+        getTestContext().setAttribute("adultValue", getText(agodaHomePage_AdultValueLocator));
         return this;
     }
 
