@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 public class WebDriverCreator {
 
-    private static final String webDriverLocation = "C:\\Users\\Admin\\OneDrive\\Documents\\LinhPham\\TShapeTraining\\Webdriver\\";
+    private static final String webDriverLocation = "C:\\Users\\linhpham\\Documents\\Tshape_Training\\Webdriver\\";
 
     public static WebDriver createLocalDriver(String browser) {
         WebDriver driver = null;
@@ -23,11 +23,11 @@ public class WebDriverCreator {
             System.setProperty("webdriver.chrome.driver", webDriverLocation + "chromedriver.exe");
             ChromeOptions options = new ChromeOptions();
             options.addArguments("start-maximized"); // open Browser in maximized mode
-//            options.addArguments("disable-infobars"); // disabling infobars
-//            options.addArguments("--disable-extensions"); // disabling extensions
-//            options.addArguments("--disable-gpu"); // applicable to Windows os only
-//            options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
-//            options.addArguments("--no-sandbox"); // Bypass OS security model
+            options.addArguments("disable-infobars"); // disabling infobars
+            options.addArguments("--disable-extensions"); // disabling extensions
+            options.addArguments("--disable-gpu"); // applicable to Windows os only
+            options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+            options.addArguments("--no-sandbox"); // Bypass OS security model
             driver = new ChromeDriver(options);
         } else if (browser.equalsIgnoreCase("firefox")) {
             System.setProperty("webdriver.gecko.driver", webDriverLocation + "geckodriver.exe");

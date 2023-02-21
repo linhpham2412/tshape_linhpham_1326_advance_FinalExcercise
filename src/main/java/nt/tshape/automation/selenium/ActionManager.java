@@ -162,6 +162,21 @@ public class ActionManager {
         }
     }
 
+    public String getTextByAttribute(String elementToGetText, String attributeName) {
+        try {
+            WebElement workingElement = findElement(elementToGetText);
+            elementHighlightAuto(workingElement);
+            String resultText = workingElement.getAttribute(attributeName);
+            System.out.println("Got text [" + resultText + "] from element [" + elementToGetText + "]");
+            return resultText;
+        } catch (StaleElementReferenceException staleElementReferenceException) {
+            return getText(elementToGetText);
+        } catch (Exception e) {
+            System.out.println("Cannot get text from element [" + elementToGetText + "]");
+            throw e;
+        }
+    }
+
     public String getTextFromElement(WebElement webElementToGetText){
         try {
             elementHighlightAuto(webElementToGetText);
@@ -340,6 +355,10 @@ public class ActionManager {
                 driver.switchTo().window(tab);
             }
         }
+    }
+
+    public void switchToIframeByWebElement(WebElement iframe){
+        driver.switchTo().frame(iframe);
     }
 
     @SneakyThrows
