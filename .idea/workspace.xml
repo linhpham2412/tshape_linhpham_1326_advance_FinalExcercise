@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="90504a42-4e5d-47a4-a68b-c7a530fd62b0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nt/tshape/automation/selenium/TestContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nt/tshape/automation/selenium/TestContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nt/tshape/automation/selenium/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nt/tshape/automation/selenium/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/nt/tshape/automation/selenium/WebDriverCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nt/tshape/automation/selenium/WebDriverCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Configuration/environment.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Configuration/environment.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaFavoriteListPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaFavoriteListPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHomePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHotelDetailPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHotelDetailPage.java" afterDir="false" />
@@ -122,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676874429018</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="working_on_test_case_2">
+      <created>1676981529377</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676981529377</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -141,14 +145,15 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="1st commit" />
     <MESSAGE value="working_on_testcase_1_steps" />
-    <option name="LAST_COMMIT_MESSAGE" value="working_on_testcase_1_steps" />
+    <MESSAGE value="working_on_test_case_2" />
+    <option name="LAST_COMMIT_MESSAGE" value="working_on_test_case_2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHotelDetailPage.java</url>
-          <line>43</line>
+          <line>42</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -163,7 +168,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaSearchPage.java</url>
-          <line>48</line>
+          <line>45</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -175,6 +180,21 @@
           <url>file://$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaFavoriteListPage.java</url>
           <line>31</line>
           <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaSearchPage.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHomePage.java</url>
+          <line>139</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/nt/tshape/automation/PageModal/AgodaHomePage.java</url>
+          <line>159</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
