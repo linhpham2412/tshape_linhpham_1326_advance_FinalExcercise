@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class Final_Exercise_TestCase extends WebDriverTestNGSetupBase {
     @SneakyThrows
     @Test(alwaysRun = true)
-    public void TC_1_Add_Hotel_Into_Favourite_Successfully() {
+    public void TC_1_Add_Apply_Hotel_Filter_And_Check_Detail_In_Hotel_Page() {
         AgodaHomePage agodaHomePage = new AgodaHomePage(getDriver(),getTestContext());
         AgodaHotelDetailPage agodaHotelDetailPage = new AgodaHotelDetailPage(getDriver(),getTestContext());
         AgodaSearchPage agodaSearchPage = new AgodaSearchPage(getDriver(),getTestContext());

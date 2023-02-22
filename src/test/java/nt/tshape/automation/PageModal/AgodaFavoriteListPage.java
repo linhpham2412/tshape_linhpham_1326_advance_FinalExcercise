@@ -39,7 +39,7 @@ public class AgodaFavoriteListPage extends ActionManager {
     public AgodaFavoriteListPage verifyCheckDateCorrectByName(String checkType) {
         //Act
         String expectedCheckDate = getAttributeByName(checkType);
-        expectedCheckDate = expectedCheckDate.substring(expectedCheckDate.indexOf(" "), expectedCheckDate.length()).trim();
+        expectedCheckDate = expectedCheckDate.substring(expectedCheckDate.indexOf(" ")).trim();
         expectedCheckDate = Utils.convertTextToFormattedDate(expectedCheckDate, "MMM dd yyyy", "dd MMM yyyy");
         String actualCheckDate = getText(agodaFavoriteListPage_CheckInOrOutBoxDateByClass.formatted(checkType));
 
@@ -67,6 +67,7 @@ public class AgodaFavoriteListPage extends ActionManager {
         assertEqual("SelectedHotelName", expectedHotelName, actualHotelName);
         return this;
     }
+
     public AgodaFavoriteListPage verifySavedHotelLocationSameAsFavoritedOne() {
         //Act
         String actualHotelLocation = getText(agodaFavoriteListPage_SelectedHotelLocationLocatorByLink.formatted(Utils.convertTextToAgodaLinkFormat(getAttributeByName("SelectedHotelName"))));

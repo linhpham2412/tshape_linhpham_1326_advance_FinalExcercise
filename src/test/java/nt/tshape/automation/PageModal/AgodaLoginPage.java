@@ -19,13 +19,13 @@ public class AgodaLoginPage extends ActionManager {
 
     //Function
     @SneakyThrows
-    public AgodaLoginPage inputAgodaUsernameAndPasswordThenLogin(){
+    public AgodaLoginPage inputAgodaUsernameAndPasswordThenLogin() {
         String userName = ConfigLoader.getEnvironment("agodaUserName");
         String password = ConfigLoader.getEnvironment("agodaPassword");
         switchToIframeByWebElement(findElement(agodaLoginPage_LoginIframeLocator));
         waitForElementVisible(agodaLoginPage_EmailTextBoxLocator);
-        sendKeys(agodaLoginPage_EmailTextBoxLocator,userName);
-        sendKeys(agodaLoginPage_PasswordTextBoxLocator,password);
+        sendKeys(agodaLoginPage_EmailTextBoxLocator, userName);
+        sendKeys(agodaLoginPage_PasswordTextBoxLocator, password);
         click(agodaLoginPage_SignInButtonLocator);
         waitForMediumTime();
         return this;
